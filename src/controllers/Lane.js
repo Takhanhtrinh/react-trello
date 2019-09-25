@@ -24,7 +24,7 @@ class Lane extends Component {
 
   handleScroll = evt => {
     const node = evt.target
-    const elemScrolPosition = node.scrollHeight - node.scrollTop - node.clientHeight
+    const elemScrolPosition = Math.floor(node.scrollHeight - node.scrollTop - node.clientHeight)
     const {onLaneScroll} = this.props
     if (elemScrolPosition <= 0 && onLaneScroll && !this.state.loading) {
       const {currentPage} = this.state
@@ -33,7 +33,7 @@ class Lane extends Component {
       onLaneScroll(nextPage, this.props.id).then(moreCards => {
         if (!moreCards || moreCards.length === 0) {
           // if no cards present, stop retrying until user action
-          node.scrollTop = node.scrollTop - 100
+          //node.scrollTop = node.scrollTop - 100
         } else {
           this.props.actions.paginateLane({
             laneId: this.props.id,
